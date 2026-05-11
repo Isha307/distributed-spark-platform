@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  spark-master:
+    image: apache/spark:3.5.1 # Download prebuilt Spark machine
+
+    container_name: spark-master # "This container is the cluster manager"
+
+    command: >
+      /opt/spark/bin/spark-class
+      org.apache.spark.deploy.master.Master
+    
+    environment:
+      - SPARK_MODE=master
+
+    ports:
+      - "8085:8080"  # Spark Web UI
+      - "7079:7077"  # Spark cluster connection
+  
+  spark-worker-1:
+    image: apache/spark:3.5.1
+
+    container_name: spark-worker-1
+
+    command: >
+      /opt/spark/bin/spark-class
+      org.apache.spark.deploy.worker.Worker
+      spark://spark-master:7077
+
+    depends_on:
+      - spark-master
