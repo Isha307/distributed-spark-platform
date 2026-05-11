@@ -28,5 +28,24 @@ services:
       org.apache.spark.deploy.worker.Worker
       spark://spark-master:7077
 
+    ports:
+      - "8081:8081"  # Spark Worker Web UI
+
+    depends_on:
+      - spark-master
+
+  spark-worker-2:
+    image: apache/spark:3.5.1
+
+    container_name: spark-worker-2
+
+    command: >
+      /opt/spark/bin/spark-class
+      org.apache.spark.deploy.worker.Worker
+      spark://spark-master:7077
+  
+    ports:
+      - "8082:8081"  # Spark Worker Web UI
+
     depends_on:
       - spark-master
