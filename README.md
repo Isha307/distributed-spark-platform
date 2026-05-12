@@ -5,13 +5,11 @@ This repository sets up a Spark cluster using Docker Compose. The cluster consis
 ## Architecture
 
 ```
-Worker Container
-      |
-      | connect
-      v
-spark://spark-master:7077
-      |
-      v
-Master Container
+Jupyter Notebook
+       |
+       v
+Spark Master
+    /       \
+Worker1   Worker2
 ```
 

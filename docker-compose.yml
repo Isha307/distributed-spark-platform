@@ -49,3 +49,15 @@ services:
 
     depends_on:
       - spark-master
+
+  jupyter:
+    build: ./jupyter-image
+
+    container_name: jupyter
+
+    ports:
+      - "8888:8888"
+      - "4040:4040"  # Spark application UI
+
+    depends_on:
+      - spark-master
