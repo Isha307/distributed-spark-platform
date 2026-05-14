@@ -5,11 +5,14 @@ This repository sets up a Spark cluster using Docker Compose. The cluster consis
 ## Architecture
 
 ```
-Jupyter Notebook
-       |
-       v
-Spark Master
-    /       \
-Worker1   Worker2
+              Jupyter
+                  ↓
+          Spark Master
+            /      \
+     Spark Worker  Spark Worker
+                  ↓
+             MinIO (S3)
+                  ↓
+               Parquet
 ```
 
