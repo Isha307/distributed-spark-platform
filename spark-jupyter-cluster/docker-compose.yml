@@ -1,7 +1,7 @@
 services:
 
   spark-master:
-    image: apache/spark:3.5.1 # Download prebuilt Spark machine
+    build: ./spark-image # Download prebuilt Spark machine
     user: root
 
     container_name: spark-master # "This container is the cluster manager"
@@ -22,7 +22,7 @@ services:
       - spark-data:/data
 
   spark-worker-1:
-    image: apache/spark:3.5.1
+    build: ./spark-image
     user: root
 
     container_name: spark-worker-1
@@ -43,7 +43,7 @@ services:
       - spark-data:/data
 
   spark-worker-2:
-    image: apache/spark:3.5.1
+    build: ./spark-image
     user: root
 
     container_name: spark-worker-2
@@ -81,7 +81,7 @@ services:
       - spark-data:/data
 
   minio:
-    image: minio/minio
+    image: minio/minio # Small object storage server compatible with Amazon S3 APIs
 
     container_name: minio
 
