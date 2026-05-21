@@ -2,7 +2,7 @@ FROM apache/spark:3.5.1
 
 USER root
 
-RUN pip install pyspark jupyter delta-spark==3.2.0
+RUN pip install pyspark jupyter delta-spark==3.2.0 kafka-python
 
 WORKDIR /opt/workspace
 

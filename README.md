@@ -175,7 +175,7 @@ Username: admin
 Password: password123
 ```
 
-
+---
 
 # This project demonstrates:
 
