@@ -1,39 +1,44 @@
-# Distributed Spark Lakehouse Environment
+# Distributed Spark Streaming Lakehouse Platform
 
-A complete local distributed data engineering environment using:
+A complete local distributed data engineering platform built using:
 
-- Apache Spark cluster
-- Jupyter Notebook
-- MinIO (S3-compatible object storage)
+- Apache Spark Cluster
+- Apache Kafka
+- Spark Structured Streaming
 - Delta Lake
+- MinIO (S3-Compatible Object Storage)
+- Jupyter Notebook
 - Docker Compose
 
-This project simulates a real-world cloud-style data lake architecture locally.
+This project simulates a modern cloud-style streaming lakehouse architecture locally.
 
 ---
 
 # Architecture
 
 ```text
-                   Jupyter Notebook
-                           |
-                           v
-                    Spark Driver
-                           |
-                           v
-                    Spark Master
-                     /         \
-                    /           \
-                   v             v
-           Spark Worker 1   Spark Worker 2
-                    \           /
-                     \         /
-                      v       v
-                        MinIO
-                    (S3 Object Store)
-                           |
-                           v
-                 Delta / Parquet Files
+                         Producer Applications
+                                   |
+                                   v
+                              Apache Kafka
+                                   |
+                                   v
+                         Spark Structured Streaming
+                                   |
+                                   v
+                            Spark Master
+                             /         \
+                            /           \
+                           v             v
+                   Spark Worker 1   Spark Worker 2
+                            \           /
+                             \         /
+                              v       v
+                                 MinIO
+                        (S3-Compatible Storage)
+                                   |
+                                   v
+                          Delta Lake Tables
 ```
 
 ---
@@ -44,9 +49,13 @@ This project simulates a real-world cloud-style data lake architecture locally.
 - Distributed Spark execution
 - Local S3-compatible storage using MinIO
 - Delta Lake support
-- Parquet-based data lake
+- Real-time streaming with Kafka
+- Spark Structured Streaming pipelines
+- Streaming ingestion into Delta Lake
+- Checkpoint-based fault tolerance
+- Distributed parquet writes
+- Interactive notebook development
 - Dockerized infrastructure
-- Interactive notebook environment
 - Real-world DE architecture concepts
 
 ---
@@ -56,6 +65,8 @@ This project simulates a real-world cloud-style data lake architecture locally.
 | Technology | Purpose |
 |---|---|
 | Apache Spark | Distributed data processing |
+| Spark Structured Streaming | Real-time stream processing |
+| Apache Kafka | Distributed event streaming |
 | Delta Lake | ACID transactions + lakehouse storage |
 | MinIO | Local S3-compatible object storage |
 | Docker Compose | Container orchestration |
@@ -88,9 +99,9 @@ project/
 ## Spark Master
 
 - Cluster manager
-- Schedules jobs
-- Tracks workers
-- Spark UI available
+- Schedules distributed jobs
+- Tracks worker nodes
+- Coordinates executors
 
 Port:
 
@@ -102,9 +113,10 @@ Port:
 
 ## Spark Workers
 
-- Execute distributed tasks
+- Execute distributed Spark tasks
 - Process partitions
-- Write parquet/delta files
+- Run Spark executors
+- Write parquet and delta files
 
 ---
 
@@ -118,6 +130,20 @@ Port:
 
 ```text
 8888
+```
+
+---
+
+## Apache Kafka
+
+- Distributed event streaming platform
+- Stores streaming events inside topics
+- Buffers and distributes real-time data
+
+Port:
+
+```text
+9092
 ```
 
 ---
@@ -143,7 +169,7 @@ Ports:
 
 ```bash
 git clone https://github.com/Isha307/distributed-spark-platform
-cd spark-jupyter-cluster
+cd distributed-spark-platform
 ```
 
 ---
@@ -177,31 +203,74 @@ Password: password123
 
 ---
 
-# This project demonstrates:
+# Streaming Pipeline
 
-- Distributed Spark architecture
-- Driver vs Executor model
-- Spark partitions
-- Object storage concepts
+This project supports real-time event ingestion using Apache Kafka and Spark Structured Streaming.
+
+Pipeline flow:
+
+```text
+Producer → Kafka → Spark Streaming → Delta Lake → MinIO
+```
+
+The system continuously ingests streaming events and stores them as Delta Lake tables inside MinIO object storage.
+
+This simulates a modern streaming lakehouse architecture locally.
+
+---
+
+
+# Engineering Concepts Covered
+
+This project demonstrates practical distributed systems concepts including:
+
+- Distributed task scheduling
+- Driver vs Executor architecture
+- Spark partitions and shuffling
+- Small files problem
+- Object storage architecture
 - S3 APIs
+- Streaming ETL pipelines
+- Event-driven systems
+- Kafka topics and consumers
+- Structured Streaming micro-batches
 - Delta Lake transactions
-- Dockerized data platforms
-- Parquet optimization
+- Checkpointing and fault tolerance
 - Distributed dependency management
+- Lakehouse architecture
+
+---
+
+# Why This Project?
+
+Most Spark tutorials focus only on local DataFrame operations.
+
+This project focuses on understanding how modern distributed data platforms actually work internally:
+
+- distributed compute
+- cluster scheduling
+- streaming ingestion
+- object storage
+- partition optimization
+- lakehouse architecture
+
+The goal is to simulate production-style data engineering systems locally using open-source technologies.
 
 ---
 
 # Future Improvements
 
-Planned additions:
+Planned enhancements:
 
-- Apache Airflow for workflow orchestration
-- Apache Kafka for real-time streaming
-- Spark Structured Streaming
-- Medallion architecture
-- Batch + streaming pipelines
-- Data quality checks
-- Lakehouse analytics
+- Apache Airflow DAG orchestration
+- Bronze / Silver / Gold medallion architecture
+- Stream aggregation pipelines
+- Kafka multi-topic ingestion
+- Data quality framework
+- Monitoring and observability
+- Stream replay and recovery
+- Partition optimization and compaction
+- Lakehouse analytics layer
 
 ---
 
@@ -211,6 +280,9 @@ This project is designed to provide hands-on experience with:
 
 - Modern data engineering systems
 - Distributed computing
+- Event-driven architectures
+- Real-time stream processing
 - Cloud-style object storage
 - Lakehouse architecture
 - Production-style Spark workflows
+- Streaming ETL pipelines
